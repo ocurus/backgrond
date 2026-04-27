@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Background Animado - Opacidade</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: black;
+            overflow: hidden;
+            height: 100vh;
+            width: 100vw;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        .container-animado {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+        }
+
+        .texto-central {
+            text-align: center;
+            padding: 20px 40px;
+            border-top: 3px solid white;
+            border-bottom: 3px solid white;
+            letter-spacing: 5px;
+            z-index: 1;
+            background-color: rgba(0, 0, 0, 0); /* Fundo mais escuro para destaque */
+        }
+
+        .texto-central h1 {
+            margin: 0;
+            font-size: 3rem;
+            font-weight: bold;
+        }
+
+        /* Configuração dos Quadrados */
+        .quadrado {
+            position: absolute;
+            background-color: white; /* Cor sólida */
+            bottom: -100px;
+            animation: subir linear infinite;
+        }
+
+        /* Animação: Sólido embaixo (1) até Invisível no topo (0) */
+        @keyframes subir {
+            0% {
+                transform: translateY(0) rotate(0deg);
+                opacity: 1; /* Completamente sólido no início */
+            }
+            100% {
+                transform: translateY(-120vh) rotate(360deg);
+                opacity: 0; /* Completamente transparente no final */
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="texto-central">
+        <h1>BACKGROUND ANIMADO</h1>
+    </div>
+
+    <div class="container-animado" id="fundo"></div>
+
+    <script>
+        function criarQuadrados() {
+            const fundo = document.getElementById('fundo');
+            const quantidade = 50;
+
+            for (let i = 0; i < quantidade; i++) {
+                const quadrado = document.createElement('div');
+                quadrado.classList.add('quadrado');
+
+                const tamanho = Math.random() * 80 + 10 + 'px';
+                quadrado.style.width = tamanho;
+                quadrado.style.height = tamanho;
+                
+                quadrado.style.left = Math.random() * 100 + 'vw';
+                
+                // Variando a velocidade para não subirem todos juntos
+                quadrado.style.animationDuration = Math.random() * 5 + 5 + 's';
+                quadrado.style.animationDelay = Math.random() * 10 + 's';
+
+                fundo.appendChild(quadrado);
+            }
+        }
+
+        window.onload = criarQuadrados;
+    </script>
+</body>
+</html>
